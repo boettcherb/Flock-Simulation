@@ -2,9 +2,11 @@ const BOID_SIZE = 6.5;
 
 class Boid {
     constructor(x, y) {
-        this.x = x;
-        this.y = y;
-        this.theta = Math.random() * 2 * Math.PI;
+        this.position = new Vector2D(x, y);
+        const velX = Math.random() * 10 - 5;
+        const velY = Math.random() * 10 - 5;
+        this.velocity = new Vector2D(velX, velY);
+        this.velocity.normalize();
         this.points = [[], [], []];
         switch(Math.floor(Math.random() * 5)) {
             case 0: this.color = '#14e0ff'; break;
@@ -15,10 +17,15 @@ class Boid {
         }
     }
 
+    update() {
+        this.position.x += this.velocity.x;
+        this.position.y += this.velocity.y;
+    }
+
     draw(ctx) {
         ctx.fillStyle = this.color;
         ctx.beginPath();
-        this.setPoints(this.theta);
+        this.setPoints(this.velocity.angle());
         ctx.moveTo(this.points[0][0], this.points[0][1]);
         ctx.lineTo(this.points[1][0], this.points[1][1]);
         ctx.lineTo(this.points[2][0], this.points[2][1]);
@@ -26,11 +33,11 @@ class Boid {
     }
 
     setPoints(theta) {
-        this.points[0][0] = BOID_SIZE * Math.sin(theta) + this.x;
-        this.points[0][1] = BOID_SIZE * Math.cos(theta) + this.y;
-        this.points[1][0] = BOID_SIZE * Math.sin(theta + 2.6) + this.x;
-        this.points[1][1] = BOID_SIZE * Math.cos(theta + 2.6) + this.y;
-        this.points[2][0] = BOID_SIZE * Math.sin(theta - 2.6) + this.x;
-        this.points[2][1] = BOID_SIZE * Math.cos(theta - 2.6) + this.y;
+        this.points[0][0] = BOID_SIZE * Math.sin(theta) + this.position.x;
+        this.points[0][1] = BOID_SIZE * Math.cos(theta) + this.position.y;
+        this.points[1][0] = BOID_SIZE * Math.sin(theta + 2.6) + this.position.x;
+        this.points[1][1] = BOID_SIZE * Math.cos(theta + 2.6) + this.position.y;
+        this.points[2][0] = BOID_SIZE * Math.sin(theta - 2.6) + this.position.x;
+        this.points[2][1] = BOID_SIZE * Math.cos(theta - 2.6) + this.position.y;
     }
 }

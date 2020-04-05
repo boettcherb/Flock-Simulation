@@ -36,4 +36,24 @@ class Vector2D {
             this.y /= magnitude;
         }
     }
+
+    angle() {
+        let angle = Math.PI / 2;
+        if (this.x > 0) {
+            if (this.y < 0) {
+                angle += Math.atan(-this.y / this.x); // first quadrant
+            } else {
+                angle -= Math.atan(this.y / this.x); // fourth quadrant
+            }
+        } else if (this.x < 0) {
+            if (this.x > 0) {
+                angle -= Math.PI - Math.atan(this.y / this.x);
+            } else {
+                angle += Math.PI + Math.atan(-this.y / this.x);
+            }
+        } else {
+            return y < 0 ? angle : -angle;
+        }
+        return angle;
+    }
 }
