@@ -29,6 +29,7 @@ class Vector2D {
         this.y -= otherVector.y;
     }
 
+    // give the vector a magnitude of 1
     normalize() {
         const magnitude = this.getMagnitude();
         if (magnitude > 0) {
@@ -37,8 +38,14 @@ class Vector2D {
         }
     }
 
+    // In computer graphics, the coordinate system has the origin at the top
+    // left of the screen. +y is downwards. This explains the inverted +/-
+    // inside the atan functions.
+    // When I draw the boid, I consider an angle of zero to be pointed 
+    // upwards, but on the coordinate plane this is an angle of PI / 2.
+    // (this is why the angle starts at PI / 2)
     angle() {
-        let angle = Math.PI / 2;
+        let angle = Math.PI / 2; 
         if (this.x > 0) {
             if (this.y < 0) {
                 angle += Math.atan(-this.y / this.x); // first quadrant
@@ -47,11 +54,12 @@ class Vector2D {
             }
         } else if (this.x < 0) {
             if (this.x > 0) {
-                angle -= Math.PI - Math.atan(this.y / this.x);
+                angle -= Math.PI - Math.atan(this.y / this.x); // second quadrant
             } else {
-                angle += Math.PI + Math.atan(-this.y / this.x);
+                angle += Math.PI + Math.atan(-this.y / this.x); // fourth quadrant
             }
         } else {
+            // if x is zero, come here (so I don't divide by zero)
             return y < 0 ? angle : -angle;
         }
         return angle;
