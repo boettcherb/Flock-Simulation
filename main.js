@@ -16,7 +16,7 @@ requestAnimationFrame(mainLoop);
 
 function mainLoop() {
     clearCanvas();
-    boids.forEach(boid => boid.update());
+    boids.forEach(boid => boid.update(canvas.width, canvas.height));
     boids.forEach(boid => boid.draw(ctx));
     if (running) {
         requestAnimationFrame(mainLoop);

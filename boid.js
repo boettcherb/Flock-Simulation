@@ -1,4 +1,5 @@
 const BOID_SIZE = 6.5;
+const MAX_SPEED = 1.75;
 
 class Boid {
     constructor(x, y) {
@@ -7,6 +8,7 @@ class Boid {
         const velY = Math.random() * 10 - 5;
         this.velocity = new Vector2D(velX, velY);
         this.velocity.normalize();
+        this.velocity.setMagnitude(MAX_SPEED);
         this.points = [[], [], []];
         switch(Math.floor(Math.random() * 5)) {
             case 0: this.color = '#14e0ff'; break;
@@ -17,15 +19,27 @@ class Boid {
         }
     }
 
-    update() {
+    update(maxX, maxY) {
         this.position.x += this.velocity.x;
         this.position.y += this.velocity.y;
+        
+        // wrap around
+        if (this.position.x < 0) {
+            this.position.x = maxX;
+        } else if (this.position.x > maxX) {
+            this.position.x = 0;
+        }
+        if (this.position.y < 0) {
+            this.position.y = maxY;
+        } else if (this.position.y > maxY) {
+            this.position.y = 0;
+        }
     }
 
     draw(ctx) {
+        this.setPoints(this.velocity.angle());
         ctx.fillStyle = this.color;
         ctx.beginPath();
-        this.setPoints(this.velocity.angle());
         ctx.moveTo(this.points[0][0], this.points[0][1]);
         ctx.lineTo(this.points[1][0], this.points[1][1]);
         ctx.lineTo(this.points[2][0], this.points[2][1]);
