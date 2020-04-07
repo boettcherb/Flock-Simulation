@@ -1,5 +1,4 @@
 const BOID_SIZE = 6.5;
-const MAX_SPEED = 1.75;
 
 class Boid {
     constructor(x, y) {
@@ -7,8 +6,6 @@ class Boid {
         const velX = Math.random() * 10 - 5;
         const velY = Math.random() * 10 - 5;
         this.velocity = new Vector2D(velX, velY);
-        this.velocity.normalize();
-        this.velocity.setMagnitude(MAX_SPEED);
         this.points = [[], [], []];
         switch(Math.floor(Math.random() * 5)) {
             case 0: this.color = '#14e0ff'; break;
@@ -19,7 +16,14 @@ class Boid {
         }
     }
 
+    setSpeed() {
+        const speedInput = document.getElementById('boid-speed');
+        this.velocity.setMagnitude(speedInput.value);
+        speedInput.nextElementSibling.innerText = `Speed: ${ speedInput.value } px / frame`;
+    }
+
     update(maxX, maxY) {
+        this.setSpeed();
         this.position.x += this.velocity.x;
         this.position.y += this.velocity.y;
         

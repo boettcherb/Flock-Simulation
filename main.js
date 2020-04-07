@@ -24,8 +24,9 @@ function mainLoop() {
 }
 
 function resizeCanvas() {
-    canvas.width = window.innerWidth * 0.95;
-    canvas.height = window.innerHeight * 0.95;
+    canvas.width = window.innerWidth * 0.7;
+    const ratio = window.innerHeight / window.innerWidth;
+    canvas.height = canvas.width * ratio;
 }
 
 function clearCanvas() {
