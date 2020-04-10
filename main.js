@@ -1,44 +1,32 @@
-const canvas = document.getElementById('canvas1');
-const ctx = canvas.getContext('2d');
-
-window.addEventListener('resize', resizeCanvas);
-canvas.addEventListener('click', togglePause);
-
-resizeCanvas();
-let running = true;
-const boids = [];
-for (let i = 0; i < 200; ++i) {
-    let X = canvas.width * Math.random();
-    let Y = canvas.height * Math.random();
-    boids.push(new Boid(X, Y));
+const numCanvases = 3;
+const canvases = [];
+for (let i = 1; i <= numCanvases; ++i) {
+    canvases.push(new Canvas('canvas' + i));
 }
-requestAnimationFrame(mainLoop);
 
+window.addEventListener('resize', resizeCanvases);
+
+function resizeCanvases() {
+    canvases.forEach(canvas => canvas.resize());
+}
+
+function togglePause(clickEvent) {
+    const id = clickEvent.target.id;
+    const number = parseInt(id.slice(-1), 10) - 1;
+    if (runningCanvas === number) {
+        runningCanvas = -1;
+    } else {
+        runningCanvas = number;
+        requestAnimationFrame(mainLoop);
+    }
+}
+
+let runningCanvas = 0;
 function mainLoop() {
-    clearCanvas();
-    boids.forEach(boid => boid.update(canvas.width, canvas.height));
-    boids.forEach(boid => boid.draw(ctx));
-    if (running) {
+    if (runningCanvas !== -1) {
+        canvases[runningCanvas].nextFrame();
         requestAnimationFrame(mainLoop);
     }
 }
 
-function resizeCanvas() {
-    // set the canvas width to 90% of the parent element's width
-    console.log(canvas.parentElement);
-    canvas.width = canvas.parentElement.clientWidth * 0.9;
-    // make the canvas width to height ratio the same as the screen 
-    const screenRatio = window.innerHeight / window.innerWidth;
-    canvas.height = canvas.width * screenRatio;
-}
-
-function clearCanvas() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-}
-
-function togglePause() {
-    running = !running;
-    if (running) {
-        requestAnimationFrame(mainLoop);
-    }
-}
+requestAnimationFrame(mainLoop);
