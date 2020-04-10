@@ -4,12 +4,26 @@ body {
 }
 
 main {
+    border-radius: 20px;
     width: 90vw;
     margin: auto;
-    background-color: #028520;
+    background-color: #bbbbbb;
     text-align: center;
 }
 
 .canvas {
     background-color: #333333;
+}
+
+p {
+    text-align: left;
+    font-size: 25px;
+}
+
+a {
+    color: black;
+}
+
+a:hover {
+    color: blue;
 }

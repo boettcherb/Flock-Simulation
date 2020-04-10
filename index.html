@@ -9,14 +9,63 @@
 <body>
     <main>
         <h1>Flock Simluation</h1>
-        <p>This simluation is based off of the fascinating paper <i>Flocks, Herds, and Schools:
-            A Distributed Behavioral Model</i> by Craig Reynolds.</p>
+        <p>
+            This simluation is based off of the fascinating paper 
+            <a href="http://www.cs.toronto.edu/~dt/siggraph97-course/cwr87/"><i>Flocks, 
+            Herds, and Schools: A Distributed Behavioral Model</i></a> by Creig Reynolds. 
+            I highly recommend reading it. This site goes over the main points of the 
+            paper and provides interactive simulations to help you visualize the 
+            behaviors that lead to flocking.
+        </p>
+        <p>
+            As Craig Reynolds says, the motion of a flock of birds or a school of fish is 
+            a beautiful part of the natural world. I can recall many instances of being 
+            fascinated by the sight.
+        </p>
+        <p>
+            Is it possible to simulate this motion using computer graphics? At first, the 
+            task seems daunting. One possible method is to create a script for each bird 
+            to follow. For example, you could take one bird and say "move straight for 10 
+            frames, then turn 30 degrees clockwise over the next 10 frames, then move 
+            straight for another 15 before turning the other direction" and so on. This 
+            would work, but there are many problems with this approach. First of all, most 
+            flocks consist of thousands of birds. Scripting out a path for every single 
+            bird will quickly become very tedious and unmaintainable, especially if you 
+            wanted to match the complexity and fluidity of a real flock. Second, it would 
+            be very difficult to make changes to the path of any bird. The path of a bird 
+            is usually dependent on its neighbors, and the paths of its neighbors are
+            usually dependent on it. Also, any change to a bird's path will greatly affect 
+            the future path of that bird. Finally, the script will eventually come to an 
+            end. I guess the programmer could put the script in a loop, but that would 
+            require that each bird starts and ends in a location that is the same relative 
+            to every other bird.
+        </p>
+        <p>
+            Fortunately, there is an easier way. Think of a real life bird flying in the
+            middle of a flock. How does it decide in which direction to go? In reality
+            there may be hundreds of things that the bird must consider. However, for our
+            simple simulation, each bird in a flock relies solely on its perception of
+            the other birds in its immediate vicinity.
+        </p>
+        <p>
+            Have a look at the simulation below. In it, each bird is basically blind. They 
+            do not react to their environment or to any other bird. Birds in this simulation 
+            have only one behavior: fly forwards. All they know is that they must keeping 
+            moving forward or they will fall out of the sky. This simulation is a good 
+            starting point. We will continue to add behavior to the birds until we get a 
+            combination of behavior that resembles a real flock.
+        </p>
         <canvas id="canvas1" class="canvas"></canvas>
         <br>
         <div>
             <input type="range" id="boid-speed" min="0.1" max="10" step="0.1" value="1.5">
             <h3 id="boid-speed-text"></h3>
-        </div> 
+        </div>
+        <p>
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Consectetur, alias itaque, 
+            exercitationem unde iusto dignissimos vitae ea officiis eum blanditiis autem delectus
+            esse ex doloremque ducimus deserunt architecto reprehenderit hic?
+        </p>
         <canvas class="canvas"></canvas>
         <br>
         <canvas class="canvas"></canvas>
