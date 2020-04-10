@@ -1,4 +1,4 @@
-const canvas = document.getElementById('canvas');
+const canvas = document.getElementById('canvas1');
 const ctx = canvas.getContext('2d');
 
 window.addEventListener('resize', resizeCanvas);
@@ -24,9 +24,12 @@ function mainLoop() {
 }
 
 function resizeCanvas() {
-    canvas.width = window.innerWidth * 0.7;
-    const ratio = window.innerHeight / window.innerWidth;
-    canvas.height = canvas.width * ratio;
+    // set the canvas width to 90% of the parent element's width
+    console.log(canvas.parentElement);
+    canvas.width = canvas.parentElement.clientWidth * 0.9;
+    // make the canvas width to height ratio the same as the screen 
+    const screenRatio = window.innerHeight / window.innerWidth;
+    canvas.height = canvas.width * screenRatio;
 }
 
 function clearCanvas() {
@@ -38,8 +41,4 @@ function togglePause() {
     if (running) {
         requestAnimationFrame(mainLoop);
     }
-}
-
-function drawBoids() {
-    boids.forEach(boid => boid.draw(ctx));
 }

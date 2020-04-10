@@ -3,6 +3,13 @@ body {
     padding: 0;
 }
 
-#canvas {
+main {
+    width: 90vw;
+    margin: auto;
+    background-color: #028520;
+    text-align: center;
+}
+
+.canvas {
     background-color: #333333;
 }
