@@ -14,11 +14,6 @@ class Vector2D {
         this.y *= newMagnitude;
     }
 
-    scale(scaleValue) {
-        this.x *= scaleValue;
-        this.y *= scaleValue;
-    }
-
     add(otherVector) {
         this.x += otherVector.x;
         this.y += otherVector.y;
@@ -27,6 +22,24 @@ class Vector2D {
     subtract(otherVector) {
         this.x -= otherVector.x;
         this.y -= otherVector.y;
+    }
+
+    multiply(scalar) {
+        this.x *= scalar;
+        this.y *= scalar;
+    }
+
+    divide(scalar) {
+        if (scalar !== 0) {
+            this.x /= scalar;
+            this.y /= scalar;
+        }
+    }
+
+    limit(max) {
+        if (this.getMagnitude() > max) {
+            this.setMagnitude(max);
+        }
     }
 
     // give the vector a magnitude of 1
@@ -60,7 +73,7 @@ class Vector2D {
             }
         } else {
             // if x is zero, come here (so I don't divide by zero)
-            return y < 0 ? angle : -angle;
+            return this.y < 0 ? angle : -angle;
         }
         return angle;
     }
