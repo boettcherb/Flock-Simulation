@@ -25,7 +25,10 @@ class Canvas {
 
     nextFrame() {
         this.clear();
-        this.boids.forEach(boid => boid.update(this.canvas.width, this.canvas.height));
-        this.boids.forEach(boid => boid.draw(this.ctx));
+        this.boids.forEach(boid => {
+            boid.update(this.boids);
+            boid.wrap(this.canvas.width, this.canvas.height);
+            boid.draw(this.ctx);
+        });
     }
 }

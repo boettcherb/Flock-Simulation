@@ -1,4 +1,8 @@
 const BOID_SIZE = 6.5;
+const BOID_PERCEPTION = 30;
+const MAX_SEPARATION_FORCE = 0.06
+const MAX_ALIGNMENT_FORCE = 0.045;
+const MAX_COHESION_FORCE = 0.05;
 
 class Boid {
     constructor(x, y) {
@@ -6,6 +10,7 @@ class Boid {
         const velX = Math.random() * 10 - 5;
         const velY = Math.random() * 10 - 5;
         this.velocity = new Vector2D(velX, velY);
+        this.acceleration = new Vector2D();
         this.points = [[], [], []];
         switch(Math.floor(Math.random() * 5)) {
             case 0: this.color = '#14e0ff'; break;
@@ -16,17 +21,32 @@ class Boid {
         }
     }
 
-    setSpeed() {
-        const speedInput = document.getElementById('boid-speed');
-        this.velocity.setMagnitude(speedInput.value);
-        speedInput.nextElementSibling.innerText = `Speed: ${ speedInput.value } px / frame`;
+    distTo(otherBoid) {
+        const xDist = this.position.x - otherBoid.position.x;
+        const yDist = this.position.y - otherBoid.position.y;
+        return Math.sqrt(xDist * xDist + yDist * yDist);
     }
 
-    update(maxX, maxY) {
-        this.setSpeed();
-        this.position.x += this.velocity.x;
-        this.position.y += this.velocity.y;
-        
+    getMaxSpeed() {
+        return document.getElementById('boid-speed').value;
+    }
+
+    setMaxSpeed(speed) {
+        const speedLabel = document.getElementById('boid-speed').nextElementSibling;
+        speedLabel.innerText = `Speed: ${ speed } px / frame`;
+    }
+
+    update(boids) {
+        this.acceleration.add(this.flock(boids));
+        this.velocity.add(this.acceleration);
+        const maxSpeed = this.getMaxSpeed();
+        this.velocity.limit(maxSpeed);
+        this.setMaxSpeed(maxSpeed);
+        this.position.add(this.velocity);
+        this.acceleration.multiply(0);
+    }
+
+    wrap(maxX, maxY) {
         // wrap around
         if (this.position.x < 0) {
             this.position.x = maxX;
@@ -38,6 +58,58 @@ class Boid {
         } else if (this.position.y > maxY) {
             this.position.y = 0;
         }
+    }
+
+    flock(boids) {
+        let numPerceivedBoids = 0;
+        let toocloseBoids = 0;
+        let separation = new Vector2D();
+        let alignment = new Vector2D();
+        let cohesion = new Vector2D();
+        let maxSpeed = this.getMaxSpeed();
+
+        for (let other of boids) {
+            const dist = this.distTo(other);
+            if (dist > 0 && dist < BOID_PERCEPTION) {
+                ++numPerceivedBoids;
+                if (dist < BOID_PERCEPTION / 2) {
+                    ++toocloseBoids;
+                    // separation
+                    let diff = new Vector2D(this.position.x, this.position.y);
+                    diff.subtract(other.position);
+                    diff.divide(dist);
+                    separation.add(diff);
+                }
+                // alignment
+                alignment.add(other.velocity);
+                // cohesion
+                cohesion.add(other.position);
+            }
+        }
+
+        let steer = new Vector2D();
+        if (toocloseBoids > 0) {
+            separation.divide(toocloseBoids);
+            separation.setMagnitude(maxSpeed);
+            separation.subtract(this.velocity);
+            separation.limit(MAX_SEPARATION_FORCE);
+            steer.add(separation);
+        }
+        if (numPerceivedBoids > 0) {
+            alignment.divide(numPerceivedBoids);
+            alignment.setMagnitude(maxSpeed);
+            alignment.subtract(this.velocity);
+            alignment.limit(MAX_ALIGNMENT_FORCE);
+            steer.add(alignment);
+
+            cohesion.divide(numPerceivedBoids);
+            cohesion.subtract(this.position);
+            cohesion.setMagnitude(maxSpeed);
+            cohesion.subtract(this.velocity);
+            cohesion.limit(MAX_COHESION_FORCE);
+            steer.add(cohesion);
+        }
+        return steer;
     }
 
     draw(ctx) {
