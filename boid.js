@@ -27,27 +27,15 @@ class Boid {
         return Math.sqrt(xDist * xDist + yDist * yDist);
     }
 
-    getMaxSpeed() {
-        return document.getElementById('boid-speed').value;
-    }
-
-    setMaxSpeed(speed) {
-        const speedLabel = document.getElementById('boid-speed').nextElementSibling;
-        speedLabel.innerText = `Speed: ${ speed } px / frame`;
-    }
-
-    update(boids) {
-        this.acceleration.add(this.flock(boids));
+    update(boids, inputs) {
+        this.acceleration.add(this.flock(boids, inputs));
         this.velocity.add(this.acceleration);
-        const maxSpeed = this.getMaxSpeed();
-        this.velocity.limit(maxSpeed);
-        this.setMaxSpeed(maxSpeed);
+        this.velocity.limit(inputs[1]);
         this.position.add(this.velocity);
         this.acceleration.multiply(0);
     }
 
     wrap(maxX, maxY) {
-        // wrap around
         if (this.position.x < 0) {
             this.position.x = maxX;
         } else if (this.position.x > maxX) {
@@ -60,13 +48,13 @@ class Boid {
         }
     }
 
-    flock(boids) {
+    flock(boids, inputs) {
         let numPerceivedBoids = 0;
         let toocloseBoids = 0;
         let separation = new Vector2D();
         let alignment = new Vector2D();
         let cohesion = new Vector2D();
-        let maxSpeed = this.getMaxSpeed();
+        let maxSpeed = inputs[1];
 
         for (let other of boids) {
             const dist = this.distTo(other);
