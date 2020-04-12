@@ -1,28 +1,31 @@
+window.addEventListener('resize', resizeCanvases);
+
 const numCanvases = 3;
 const canvases = [];
 for (let i = 1; i <= numCanvases; ++i) {
     canvases.push(new Canvas('canvas' + i));
 }
 
-const inputIDs = ['count', 'speed'];
-function getInputs() {
-    let inputValues = [];
-    for (let id of inputIDs) {
-        inputValues.push(document.getElementById(id).value);
-    }
-    return inputValues;
+const inputIDs = ['count', 'speed', 'perception', 'separation', 'alignment', 'cohesion'];
+for (let id of inputIDs) {
+    document.getElementById(id).addEventListener('input', getInputs);
 }
 
-window.addEventListener('resize', resizeCanvases);
-
-function resizeCanvases() {
-    canvases.forEach(canvas => canvas.resize());
-}
+const inputValues = new Array(inputIDs.length);
+getInputs();
 
 let runningCanvas = 0;
+requestAnimationFrame(mainLoop);
+
+function getInputs() {
+    for (let i = 0; i < inputIDs.length; ++i) {
+        inputValues[i] = document.getElementById(inputIDs[i]).value;
+    }
+}
+
 function mainLoop() {
     if (runningCanvas !== -1) {
-        canvases[runningCanvas].nextFrame(getInputs());
+        canvases[runningCanvas].nextFrame(inputValues);
         requestAnimationFrame(mainLoop);
     }
 }
@@ -38,4 +41,6 @@ function togglePause(clickEvent) {
     }
 }
 
-requestAnimationFrame(mainLoop);
+function resizeCanvases() {
+    canvases.forEach(canvas => canvas.resize());
+}

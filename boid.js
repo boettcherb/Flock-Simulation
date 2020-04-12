@@ -1,8 +1,4 @@
 const BOID_SIZE = 6.5;
-const BOID_PERCEPTION = 30;
-const MAX_SEPARATION_FORCE = 0.06
-const MAX_ALIGNMENT_FORCE = 0.045;
-const MAX_COHESION_FORCE = 0.05;
 
 class Boid {
     constructor(x, y) {
@@ -58,9 +54,9 @@ class Boid {
 
         for (let other of boids) {
             const dist = this.distTo(other);
-            if (dist > 0 && dist < BOID_PERCEPTION) {
+            if (dist > 0 && dist < inputs[2]) {
                 ++numPerceivedBoids;
-                if (dist < BOID_PERCEPTION / 2) {
+                if (dist < inputs[2] / 2) {
                     ++toocloseBoids;
                     // separation
                     let diff = new Vector2D(this.position.x, this.position.y);
@@ -80,21 +76,21 @@ class Boid {
             separation.divide(toocloseBoids);
             separation.setMagnitude(maxSpeed);
             separation.subtract(this.velocity);
-            separation.limit(MAX_SEPARATION_FORCE);
+            separation.limit(inputs[3]);
             steer.add(separation);
         }
         if (numPerceivedBoids > 0) {
             alignment.divide(numPerceivedBoids);
             alignment.setMagnitude(maxSpeed);
             alignment.subtract(this.velocity);
-            alignment.limit(MAX_ALIGNMENT_FORCE);
+            alignment.limit(inputs[4]);
             steer.add(alignment);
 
             cohesion.divide(numPerceivedBoids);
             cohesion.subtract(this.position);
             cohesion.setMagnitude(maxSpeed);
             cohesion.subtract(this.velocity);
-            cohesion.limit(MAX_COHESION_FORCE);
+            cohesion.limit(inputs[5]);
             steer.add(cohesion);
         }
         return steer;
