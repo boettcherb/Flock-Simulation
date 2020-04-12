@@ -27,3 +27,10 @@ a {
 a:hover {
     color: blue;
 }
+
+.input {
+    display: inline-block;
+    background-color: #999999;
+    border: solid 1px #000000;
+    border-radius: 10px; 
+}
