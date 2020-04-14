@@ -1,6 +1,13 @@
 // resize the canvases whenever the window resizes
 window.addEventListener('resize', resizeCanvases);
 
+document.getElementById('closeButton').addEventListener('click', closeSidebar);
+const buttons = document.getElementsByClassName('open-inputs-button');
+for (let button of buttons) {
+    console.log(button);
+    button.addEventListener('click', openSidebar);
+}
+
 // constants for the canvases
 const numCanvases = 5;
 const canvasBehaviors = [
@@ -40,6 +47,8 @@ let runningCanvas = 0;
 // initialize the inputs
 getInputs();
 
+openSidebar();
+
 // start the main animation loop
 requestAnimationFrame(mainLoop);
 
@@ -78,5 +87,26 @@ function togglePause(clickEvent) {
 }
 
 function resizeCanvases() {
+    const viewWidth = document.getElementsByTagName('body')[0].clientWidth;
+    console.log(viewWidth);
     canvases.forEach(canvas => canvas.resize());
+}
+
+function openSidebar() {
+    const viewWidth = document.getElementsByTagName('body')[0].clientWidth;
+    document.getElementById('sidebar').style.width = '250px';
+    const main = document.getElementsByTagName('main')[0];
+    main.style.marginLeft = '250px';
+    main.style.marginRight = '0';
+    main.style.width = `${ viewWidth - 250 }px`;
+    resizeCanvases();
+}
+
+function closeSidebar() {
+    const viewWidth = document.getElementsByTagName('body')[0].clientWidth;
+    document.getElementById('sidebar').style.width = '0';
+    const main = document.getElementsByTagName('main')[0];
+    main.style.width = `${ viewWidth * 0.9 }px`
+    main.style.margin = 'auto';
+    resizeCanvases();
 }
