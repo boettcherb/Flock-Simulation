@@ -55,40 +55,44 @@
             starting point. We will continue to add behavior to the birds until we get a 
             combination of behavior that resembles a real flock.
         </p>
-        <canvas id="canvas1" class="canvas"></canvas>
+        <canvas id="canvas0" class="canvas"></canvas>
         <br>
         <div class="input">
             <h3>Count:</h3>
-            <input type="range" id="count" min="1" max="1000" step="1" value="250">
+            <input type="range" id="count" min="1" max="1000" step="1">
         </div>
         <div class="input">
             <h3>Max Speed:</h3>
-            <input type="range" id="speed" min="1" max="10" step="0.1" value="2">
+            <input type="range" id="speed" min="0.5" max="7" step="0.1">
         </div>
         <div class="input">
             <h3>Perception:</h3>
-            <input type="range" id="perception" min="0" max="100" step="1" value="30">
+            <input type="range" id="perception" min="0" max="100" step="1">
         </div>
         <div class="input">
             <h3>Separation:</h3>
-            <input type="range" id="separation" min="0" max="0.2" step="0.002" value="0.06">
+            <input type="range" id="separation" min="0" max="0.2" step="0.002">
         </div>
         <div class="input">
             <h3>Alignment:</h3>
-            <input type="range" id="alignment" min="0" max="0.2" step="0.002" value="0.045">
+            <input type="range" id="alignment" min="0" max="0.2" step="0.002">
         </div>
         <div class="input">
             <h3>Cohesion:</h3>
-            <input type="range" id="cohesion" min="0" max="0.2" step="0.002" value="0.05">
+            <input type="range" id="cohesion" min="0" max="0.2" step="0.002">
         </div>
         <p>
             Lorem, ipsum dolor sit amet consectetur adipisicing elit. Consectetur, alias itaque, 
             exercitationem unde iusto dignissimos vitae ea officiis eum blanditiis autem delectus
             esse ex doloremque ducimus deserunt architecto reprehenderit hic?
         </p>
+        <canvas id="canvas1" class="canvas"></canvas>
+        <br>
         <canvas id="canvas2" class="canvas"></canvas>
         <br>
         <canvas id="canvas3" class="canvas"></canvas>
+        <br>
+        <canvas id="canvas4" class="canvas"></canvas>
     </main>
     <script src="canvas.js"></script>
     <script src="vector2D.js"></script>
