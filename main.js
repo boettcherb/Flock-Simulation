@@ -1,6 +1,11 @@
 // resize the canvases when the window resizes
 window.addEventListener('resize', resizeCanvases);
 
+const resetButtons = document.getElementsByClassName('reset-button');
+for (let button of resetButtons) {
+    button.addEventListener('click', resetInputs);
+}
+
 // constants defining the IDs and initial values of the range inputs
 const inputIDs = [
     ['count0', 'speed0'],
@@ -9,7 +14,7 @@ const inputIDs = [
     ['count3', 'speed3', 'perception3', 'cohesion3'],
     ['count4', 'speed4', 'perception4', 'separation4', 'alignment4', 'cohesion4']
 ];
-const initialInputs = [
+const initialValues = [
     [250, 1.5],
     [250, 1.5, 30, 0.06],
     [250, 1.5, 30, 0.045],
@@ -28,7 +33,7 @@ for (let i = 0; i < numCanvases; ++i) {
 for (let i = 0; i < inputIDs.length; ++i) {
     for (let j = 0; j < inputIDs[i].length; ++j) {
         const rangeInput = document.getElementById(inputIDs[i][j]);
-        rangeInput.value = initialInputs[i][j];
+        rangeInput.value = initialValues[i][j];
         rangeInput.addEventListener('input', getInputs);
     }
 }
@@ -58,9 +63,6 @@ function getInputs(event) {
         canvases[runningCanvas].setInputs(currentInputs, runningCanvas);
         if (resetSpeed) {
             canvases[runningCanvas].setBoidSpeed();
-            // for (let boid of canvases[runningCanvas].boids) {
-            //     boid.velocity.setMagnitude(inputValues[runningCanvas][1]);
-            // }
         }
     }
 }
@@ -86,4 +88,12 @@ function togglePause(clickEvent) {
 
 function resizeCanvases() {
     canvases.forEach(canvas => canvas.resize());
+}
+
+function resetInputs(event) {
+    let index = parseInt(event.target.value, 10);
+    for (let i = 0; i < inputIDs[index].length; ++i) {
+        document.getElementById(inputIDs[index][i]).value = initialValues[index][i];
+    }
+    canvases[index].setInputs(initialValues[index], index);
 }
