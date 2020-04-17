@@ -51,6 +51,7 @@ let runningCanvas = 0;
 getInputs();
 
 // make sure the sidebar is initially closed
+let sidebarOpen = false;
 closeSidebar();
 
 // start the main animation loop
@@ -93,22 +94,25 @@ function togglePause(clickEvent) {
 function resize() {
     const viewWidth = document.getElementsByTagName('body')[0].clientWidth;
     const main = document.getElementsByTagName('main')[0];
-    main.style.width = `${ viewWidth * 0.9 }px`
-    main.style.margin = 'auto';
+    if (sidebarOpen) {
+        main.style.width = `${ (viewWidth - 250) * 0.9 }px`;
+        main.style.margin = '0';
+        main.style.marginLeft = '250px';
+    } else {
+        main.style.width = `${ viewWidth * 0.9 }px`;
+        main.style.margin = 'auto';
+    }
     canvases.forEach(canvas => canvas.resize());
 }
 
 function openSidebar() {
-    const viewWidth = document.getElementsByTagName('body')[0].clientWidth;
+    sidebarOpen = true;
     document.getElementById('sidebar').style.width = '250px';
-    const main = document.getElementsByTagName('main')[0];
-    main.style.marginLeft = '250px';
-    main.style.marginRight = '0';
-    main.style.width = `${ viewWidth - 250 }px`;
-    resizeCanvases();
+    resize();
 }
 
 function closeSidebar() {
+    sidebarOpen = false;
     document.getElementById('sidebar').style.width = '0';
     resize();
 }
