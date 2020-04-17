@@ -7,34 +7,6 @@
     <title>Flock Simulation</title>
 </head>
 <body>
-    <div id="sidebar">
-        <a href="#" id="closeButton">×</a>
-        <div class="range-input">
-            <h3>Count:</h3>
-            <input type="range" id="count" min="1" max="1000" step="1">
-        </div>
-        <div class="range-input">
-            <h3>Max Speed:</h3>
-            <input type="range" id="speed" min="0.5" max="7" step="0.1">
-        </div>
-        <div class="range-input">
-            <h3>Perception:</h3>
-            <input type="range" id="perception" min="0" max="100" step="1">
-        </div>
-        <div class="range-input">
-            <h3>Separation:</h3>
-            <input type="range" id="separation" min="0" max="0.2" step="0.002">
-        </div>
-        <div class="range-input">
-            <h3>Alignment:</h3>
-            <input type="range" id="alignment" min="0" max="0.2" step="0.002">
-        </div>
-        <div class="range-input">
-            <h3>Cohesion:</h3>
-            <input type="range" id="cohesion" min="0" max="0.2" step="0.002">
-        </div>
-        <button type="button" id="reset-button" class="normal-button">Reset Inputs</button>
-    </div>
     <main>
         <h1>Flock Simluation</h1>
         <p>
@@ -84,8 +56,15 @@
             combination of behavior that resembles a real flock.
         </p>
         <canvas id="canvas0" class="canvas"></canvas>
-        <br>
-        <button class="open-inputs" type="button">Open Inputs</button>
+        <div class="range-input">
+            <h3>Count:</h3>
+            <input type="range" id="count" min="1" max="1000" step="1">
+        </div>
+        <div class="range-input">
+            <h3>Max Speed:</h3>
+            <input type="range" id="speed" min="0.5" max="7" step="0.1">
+        </div>
+        <button type="button" class="reset-button">Reset Inputs</button>
         <br>
         <p>
             Lorem, ipsum dolor sit amet consectetur adipisicing elit. Consectetur, alias itaque, 
@@ -94,11 +73,88 @@
         </p>
         <canvas id="canvas1" class="canvas"></canvas>
         <br>
+        <div class="range-input">
+            <h3>Count:</h3>
+            <input type="range" id="count" min="1" max="1000" step="1">
+        </div>
+        <div class="range-input">
+            <h3>Max Speed:</h3>
+            <input type="range" id="speed" min="0.5" max="7" step="0.1">
+        </div>
+        <div class="range-input">
+            <h3>Perception:</h3>
+            <input type="range" id="perception" min="0" max="100" step="1">
+        </div>
+        <div class="range-input">
+            <h3>Separation:</h3>
+            <input type="range" id="separation" min="0" max="0.2" step="0.002">
+        </div>
+        <button type="button" id="reset-button" class="normal-button">Reset Inputs</button>
         <canvas id="canvas2" class="canvas"></canvas>
         <br>
+        <div class="range-input">
+            <h3>Count:</h3>
+            <input type="range" id="count" min="1" max="1000" step="1">
+        </div>
+        <div class="range-input">
+            <h3>Max Speed:</h3>
+            <input type="range" id="speed" min="0.5" max="7" step="0.1">
+        </div>
+        <div class="range-input">
+            <h3>Perception:</h3>
+            <input type="range" id="perception" min="0" max="100" step="1">
+        </div>
+        <div class="range-input">
+            <h3>Alignment:</h3>
+            <input type="range" id="alignment" min="0" max="0.2" step="0.002">
+        </div>
+        <button type="button" id="reset-button" class="normal-button">Reset Inputs</button>
         <canvas id="canvas3" class="canvas"></canvas>
         <br>
+        <div class="range-input">
+            <h3>Count:</h3>
+            <input type="range" id="count" min="1" max="1000" step="1">
+        </div>
+        <div class="range-input">
+            <h3>Max Speed:</h3>
+            <input type="range" id="speed" min="0.5" max="7" step="0.1">
+        </div>
+        <div class="range-input">
+            <h3>Perception:</h3>
+            <input type="range" id="perception" min="0" max="100" step="1">
+        </div>
+        <div class="range-input">
+            <h3>Cohesion:</h3>
+            <input type="range" id="cohesion" min="0" max="0.2" step="0.002">
+        </div>
+        <button type="button" id="reset-button" class="normal-button">Reset Inputs</button>
         <canvas id="canvas4" class="canvas"></canvas>
+        <br>
+        <div class="range-input">
+            <h3>Count:</h3>
+            <input type="range" id="count" min="1" max="1000" step="1">
+        </div>
+        <div class="range-input">
+            <h3>Max Speed:</h3>
+            <input type="range" id="speed" min="0.5" max="7" step="0.1">
+        </div>
+        <div class="range-input">
+            <h3>Perception:</h3>
+            <input type="range" id="perception" min="0" max="100" step="1">
+        </div>
+        <div class="range-input">
+            <h3>Separation:</h3>
+            <input type="range" id="separation" min="0" max="0.2" step="0.002">
+        </div>
+        <div class="range-input">
+            <h3>Alignment:</h3>
+            <input type="range" id="alignment" min="0" max="0.2" step="0.002">
+        </div>
+        <div class="range-input">
+            <h3>Cohesion:</h3>
+            <input type="range" id="cohesion" min="0" max="0.2" step="0.002">
+        </div>
+        <button type="button" id="reset-button" class="normal-button">Reset Inputs</button>
     </main>
     <script src="canvas.js"></script>
     <script src="vector2D.js"></script>
