@@ -43,19 +43,25 @@ getInputs();
 requestAnimationFrame(mainLoop);
 
 function getInputs(event) {
-    console.log("in getInputs");
-    // let resetSpeed = event !== undefined && event.target.id === 'speed';
+    let resetSpeed = false;
+    if (event !== undefined) {
+        let id = event.target.id;
+        if (id.substring(0, id.length - 1) === 'speed') {
+            resetSpeed = true;
+        }
+    }
     if (runningCanvas !== -1) {
         let currentInputs = new Array(inputIDs[runningCanvas]);
         for (let i = 0; i < inputIDs[runningCanvas].length; ++i) {
             currentInputs[i] = document.getElementById(inputIDs[runningCanvas][i]).value;
         }
         canvases[runningCanvas].setInputs(currentInputs, runningCanvas);
-        // if (resetSpeed) {
-        //     for (let boid of canvases[runningCanvas].boids) {
-        //         boid.velocity.setMagnitude(inputValues[1]);
-        //     }
-        // }
+        if (resetSpeed) {
+            canvases[runningCanvas].setBoidSpeed();
+            // for (let boid of canvases[runningCanvas].boids) {
+            //     boid.velocity.setMagnitude(inputValues[runningCanvas][1]);
+            // }
+        }
     }
 }
 

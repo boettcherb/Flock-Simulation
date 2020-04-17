@@ -43,7 +43,6 @@ class Canvas {
         for (let element of arr) {
             this.currentInputs.push(element);
         }
-        console.log(this.currentInputs);
     }
 
     setNumBoids(numBoids) {
@@ -54,6 +53,12 @@ class Canvas {
         }
         for (let i = this.boids.length; i > numBoids; --i) {
             this.boids.pop();
+        }
+    }
+
+    setBoidSpeed() {
+        for (let boid of this.boids) {
+            boid.velocity.setMagnitude(this.currentInputs[1]);
         }
     }
 }
