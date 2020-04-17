@@ -39,3 +39,17 @@ a:hover {
     border: solid 1px #000000;
     border-radius: 10px; 
 }
+
+.reset-button {
+    color: black;
+    background-color: #666666;
+    border: 3px solid black;
+    margin: 20px;
+    font-size: 30px;
+}
+
+.reset-button:hover {
+    color: #dddddd;
+    border-color: #dddddd;
+    cursor: pointer;
+}
