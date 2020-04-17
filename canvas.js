@@ -36,7 +36,7 @@ class Canvas {
         switch (runningCanvas) {
             case 0: arr = [null, null, null, null]; break;
             case 1: arr = [inputs[2], inputs[3], null, null]; break;
-            case 2: arr = [inputs[3], null, inputs[3], null]; break;
+            case 2: arr = [inputs[2], null, inputs[3], null]; break;
             case 3: arr = [inputs[2], null, null, inputs[3]]; break;
             case 4: arr = [inputs[2], inputs[3], inputs[4], inputs[5]]; break;
         }
