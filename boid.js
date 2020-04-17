@@ -47,51 +47,52 @@ class Boid {
     flock(boids, inputs) {
         let numPerceivedBoids = 0;
         let toocloseBoids = 0;
+        let steer = new Vector2D();
         let separation = new Vector2D();
         let alignment = new Vector2D();
         let cohesion = new Vector2D();
         let maxSpeed = inputs[1];
-
-        for (let other of boids) {
-            const dist = this.distTo(other);
-            if (dist > 0 && dist < inputs[2]) {
-                ++numPerceivedBoids;
-                if (dist < inputs[2] / 2) {
-                    ++toocloseBoids;
-                    // separation
-                    let diff = new Vector2D(this.position.x, this.position.y);
-                    diff.subtract(other.position);
-                    diff.divide(dist);
-                    separation.add(diff);
+        if (inputs.length > 2) {
+            for (let other of boids) {
+                const dist = this.distTo(other);
+                if (dist > 0 && dist < inputs[2]) {
+                    ++numPerceivedBoids;
+                    if (dist < inputs[2] / 2) {
+                        ++toocloseBoids;
+                        // separation
+                        let diff = new Vector2D(this.position.x, this.position.y);
+                        diff.subtract(other.position);
+                        diff.divide(dist);
+                        separation.add(diff);
+                    }
+                    // alignment
+                    alignment.add(other.velocity);
+                    // cohesion
+                    cohesion.add(other.position);
                 }
-                // alignment
-                alignment.add(other.velocity);
-                // cohesion
-                cohesion.add(other.position);
             }
-        }
-
-        let steer = new Vector2D();
-        if (toocloseBoids > 0) {
-            separation.divide(toocloseBoids);
-            separation.setMagnitude(maxSpeed);
-            separation.subtract(this.velocity);
-            separation.limit(inputs[3]);
-            steer.add(separation);
-        }
-        if (numPerceivedBoids > 0) {
-            alignment.divide(numPerceivedBoids);
-            alignment.setMagnitude(maxSpeed);
-            alignment.subtract(this.velocity);
-            alignment.limit(inputs[4]);
-            steer.add(alignment);
-
-            cohesion.divide(numPerceivedBoids);
-            cohesion.subtract(this.position);
-            cohesion.setMagnitude(maxSpeed);
-            cohesion.subtract(this.velocity);
-            cohesion.limit(inputs[5]);
-            steer.add(cohesion);
+            if (inputs[3] !== null && toocloseBoids > 0) {
+                separation.divide(toocloseBoids);
+                separation.setMagnitude(maxSpeed);
+                separation.subtract(this.velocity);
+                separation.limit(inputs[3]);
+                steer.add(separation);
+            }
+            if (inputs[4] !== null && numPerceivedBoids > 0) {
+                alignment.divide(numPerceivedBoids);
+                alignment.setMagnitude(maxSpeed);
+                alignment.subtract(this.velocity);
+                alignment.limit(inputs[4]);
+                steer.add(alignment);
+            }
+            if (inputs[5] !== null && numPerceivedBoids > 0) {
+                cohesion.divide(numPerceivedBoids);
+                cohesion.subtract(this.position);
+                cohesion.setMagnitude(maxSpeed);
+                cohesion.subtract(this.velocity);
+                cohesion.limit(inputs[5]);
+                steer.add(cohesion);
+            }
         }
         return steer;
     }

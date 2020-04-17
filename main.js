@@ -1,38 +1,37 @@
 // resize the canvases when the window resizes
 window.addEventListener('resize', resizeCanvases);
 
-// constants for the canvases
-const numCanvases = 5;
-const canvasBehaviors = [
-    [1, 1, 1, 0, 0, 0],
-    [1, 1, 1, 1, 0, 0],
-    [1, 1, 1, 0, 1, 0],
-    [1, 1, 1, 0, 0, 1],
-    [1, 1, 1, 1, 1, 1]
+// constants defining the IDs and initial values of the range inputs
+const inputIDs = [
+    ['count0', 'speed0'],
+    ['count1', 'speed1', 'perception1', 'separation1'],
+    ['count2', 'speed2', 'perception2', 'alignment2'],
+    ['count3', 'speed3', 'perception3', 'cohesion3'],
+    ['count4', 'speed4', 'perception4', 'separation4', 'alignment4', 'cohesion4']
 ];
+const initialInputs = [
+    [250, 1.5],
+    [250, 1.5, 30, 0.06],
+    [250, 1.5, 30, 0.045],
+    [250, 1.5, 30, 0.05],
+    [250, 1.5, 30, 0.06, 0.045, 0.05]
+]
 
 // create the canvases, each with its own id
-const canvases = [];
+const numCanvases = 5;
+const canvases = new Array(numCanvases);
 for (let i = 0; i < numCanvases; ++i) {
-    canvases.push(new Canvas('canvas' + i));
+    canvases[i] = new Canvas('canvas' + i);
 }
 
-// constants defining the IDs and initial values of the range inputs
-const inputIDs = ['count', 'speed', 'perception', 'separation', 'alignment', 'cohesion'];
-const initialInputValues = [250, 1.5, 30, 0.06, 0.045, 0.05];
-
-// set the initial values of the range inputs
+// give the range inputs their initial values and an event listener
 for (let i = 0; i < inputIDs.length; ++i) {
-    document.getElementById(inputIDs[i]).value = initialInputValues[i];
+    for (let j = 0; j < inputIDs[i].length; ++j) {
+        const rangeInput = document.getElementById(inputIDs[i][j]);
+        rangeInput.value = initialInputs[i][j];
+        rangeInput.addEventListener('input', getInputs);
+    }
 }
-
-// give each range input an input listener
-for (let id of inputIDs) {
-    document.getElementById(id).addEventListener('input', getInputs);
-}
-
-// an array to hold the current input values.
-const inputValues = new Array(inputIDs.length);
 
 // the id of the canvas that is currently running (only 1 canvas can run at a time)
 let runningCanvas = 0;
@@ -44,23 +43,25 @@ getInputs();
 requestAnimationFrame(mainLoop);
 
 function getInputs(event) {
-    let resetSpeed = event !== undefined && event.target.id === 'speed';
+    console.log("in getInputs");
+    // let resetSpeed = event !== undefined && event.target.id === 'speed';
     if (runningCanvas !== -1) {
-        for (let i = 0; i < inputIDs.length; ++i) {
-            inputValues[i] = document.getElementById(inputIDs[i]).value;
-            inputValues[i] *= canvasBehaviors[runningCanvas][i];
+        let currentInputs = new Array(inputIDs[runningCanvas]);
+        for (let i = 0; i < inputIDs[runningCanvas].length; ++i) {
+            currentInputs[i] = document.getElementById(inputIDs[runningCanvas][i]).value;
         }
-        if (resetSpeed) {
-            for (let boid of canvases[runningCanvas].boids) {
-                boid.velocity.setMagnitude(inputValues[1]);
-            }
-        }
+        canvases[runningCanvas].setInputs(currentInputs, runningCanvas);
+        // if (resetSpeed) {
+        //     for (let boid of canvases[runningCanvas].boids) {
+        //         boid.velocity.setMagnitude(inputValues[1]);
+        //     }
+        // }
     }
 }
 
 function mainLoop() {
     if (runningCanvas !== -1) {
-        canvases[runningCanvas].nextFrame(inputValues);
+        canvases[runningCanvas].nextFrame();
         requestAnimationFrame(mainLoop);
     }
 }
