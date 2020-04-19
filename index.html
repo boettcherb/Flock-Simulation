@@ -11,10 +11,10 @@
         <h1>Flock Simluation</h1>
         <p>
             This simluation is based off of the fascinating paper 
-            <a href="http://www.cs.toronto.edu/~dt/siggraph97-course/cwr87/"><i>Flocks, 
-            Herds, and Schools: A Distributed Behavioral Model</i></a> by Creig Reynolds. 
-            I highly recommend reading it. This site goes over the main points of the 
-            paper and provides interactive simulations to help you visualize the 
+            <a target="_blank" href="http://www.cs.toronto.edu/~dt/siggraph97-course/cwr87/">
+            <i>Flocks, Herds, and Schools: A Distributed Behavioral Model</i></a> by Creig 
+            Reynolds. I highly recommend reading it. This site goes over the main points of 
+            the paper and provides interactive simulations to help you visualize the 
             behaviors that lead to flocking.
         </p>
         <p>
@@ -48,12 +48,14 @@
             the other birds in its immediate vicinity.
         </p>
         <p>
-            Have a look at the simulation below. In it, each bird is basically blind. They 
-            do not react to their environment or to any other bird. Birds in this simulation 
-            have only one behavior: fly forwards. All they know is that they must keeping 
-            moving forward or they will fall out of the sky. This simulation is a good 
-            starting point. We will continue to add behavior to the birds until we get a 
-            combination of behavior that resembles a real flock.
+            Have a look at the simulation below. In it, the birds have no perception of 
+            anything around them. They are basically blind, flying only with the goal to 
+            stay in the air and keep moving. Of course this does not yet look like a flock, 
+            but it is a good starting point. Each bird is given a random position and 
+            velocity vector, and the position of the bird in the next frame is calculated
+            by simply adding the velocity vector to the position vector. From here, we will 
+            continue to add behavior to the birds until we get a combination of behavior 
+            that resembles a real flock.
         </p>
         <canvas id="canvas0" class="canvas"></canvas>
         <div class="range-input">
@@ -66,11 +68,12 @@
         </div>
         <br>
         <button type="button" value="0" class="reset-button">Reset Inputs</button>
-        <br>
+        <h2>Separation</h2>
+        <img src="separation.gif" alt="Boid Separation Behavior">
         <p>
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Consectetur, alias itaque, 
-            exercitationem unde iusto dignissimos vitae ea officiis eum blanditiis autem delectus
-            esse ex doloremque ducimus deserunt architecto reprehenderit hic?
+            The first flocking behavior we will look at is Separation, or the desire for a bird to 
+            steer away from other birds that are too close. Colliding with another bird in 
+            mid air is probably not a good way to maintain altitude.
         </p>
         <canvas id="canvas1" class="canvas"></canvas>
         <br>
