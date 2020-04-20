@@ -115,8 +115,4 @@ class Boid {
         this.points[2][0] = BOID_SIZE * Math.sin(theta - 2.6) + this.position.x;
         this.points[2][1] = BOID_SIZE * Math.cos(theta - 2.6) + this.position.y;
     }
-
-    map(val, in_min, in_max, out_min, out_max) {
-        return (val - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
-    }
 }
