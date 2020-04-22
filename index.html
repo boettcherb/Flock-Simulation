@@ -48,14 +48,17 @@
             the other birds in its immediate vicinity.
         </p>
         <p>
-            Have a look at the simulation below. In it, the birds have no perception of 
-            anything around them. They are basically blind, flying only with the goal to 
-            stay in the air and keep moving. Of course this does not yet look like a flock, 
-            but it is a good starting point. Each bird is given a random position and 
-            velocity vector, and the position of the bird in the next frame is calculated
-            by simply adding the velocity vector to the position vector. From here, we will 
-            continue to add behavior to the birds until we get a combination of behavior 
-            that resembles a real flock.
+            Have a look at the simulation below. In it, there are many boids (a term coined
+            by Mr. Reynolds combining "bird" and "droid") that are programmed with only one 
+            behavior: move forward at a certain speed. Initially, Each boid is given a random 
+            position and velocity vector, and the position of the boid in the next frame is 
+            calculated by adding the velocity vector to the position vector (the velocity does 
+            not change). Of course this does not yet look like a flock, but it is a good 
+            starting point. There are three behaviors that each boid must take into account 
+            each time it decides its next move. These behaviors are Separation, Alignment, and 
+            Cohesion. Alongside these three main behaviors are other important considerations, 
+            such as the perception radius of each boid and the magnitude of the forces applied
+            by each of the main behaviors.
         </p>
         <canvas id="canvas0" class="canvas"></canvas>
         <div class="range-input">
@@ -71,6 +74,7 @@
         <h2>Separation</h2>
         <img src="separation.gif" alt="Boid Separation Behavior">
         <p>
+            One of the most 
             The first flocking behavior we will look at is Separation, or the desire for a bird to 
             steer away from other birds that are too close. Colliding with another bird in 
             mid air is probably not a good way to maintain altitude.
@@ -95,7 +99,12 @@
         </div>
         <br>
         <button type="button" value="1" class="reset-button">Reset Inputs</button>
-        <br>
+        <p>
+            The next behavior we will look at is alignment. This is probably the most important 
+            behavior for creating a flocking simulation. Alignment is the desire for a bird to 
+            steer in the same direction as its neighbors. Naturally, all the members of a flock 
+            will desire to stick together
+        </p>
         <canvas id="canvas2" class="canvas"></canvas>
         <br>
         <div class="range-input">
