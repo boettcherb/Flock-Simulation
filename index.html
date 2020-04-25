@@ -74,10 +74,14 @@
         <h2>Separation</h2>
         <img src="separation.gif" alt="Boid Separation Behavior">
         <p>
-            One of the most 
-            The first flocking behavior we will look at is Separation, or the desire for a bird to 
-            steer away from other birds that are too close. Colliding with another bird in 
-            mid air is probably not a good way to maintain altitude.
+            The first flocking behavior we will look at is Separation, or the desire for a boid 
+            to steer away from other boids that are too close. In real life, a bird in a flock 
+            will normally try to keep some minimum distance between itself and the birds around 
+            it so as to not risk a collision. In this simulation, a boid can only sense and react 
+            to other boids that are within its perception radius. A boid is too close to another 
+            boid if the distance between them is less than half their perception radius. When a 
+            boid determines that another boid is too close, it starts to accelerate in the opposite
+            direction.
         </p>
         <canvas id="canvas1" class="canvas"></canvas>
         <br>
