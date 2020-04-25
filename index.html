@@ -81,7 +81,9 @@
             to other boids that are within its perception radius. A boid is too close to another 
             boid if the distance between them is less than half their perception radius. When a 
             boid determines that another boid is too close, it starts to accelerate in the opposite
-            direction.
+            direction. The amount of separation is proportional to the inverse of the distance. 
+            In other words, the force of separation is stronger the closer the boids are to each
+            other.
         </p>
         <canvas id="canvas1" class="canvas"></canvas>
         <br>
