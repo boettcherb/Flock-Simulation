@@ -87,7 +87,9 @@
             boid determines that another boid is too close, it starts to accelerate in the opposite
             direction. The amount of separation is proportional to the inverse of the distance. 
             In other words, the separation force is stronger the closer the boids are to each
-            other.
+            other. If there are multiple boids too close to any boid, that boid calculates an 
+            average separation force by calculating the separation force for each close boid,
+            adding them up, and dividing by the total number of close boids.
         </p>
         <p>
             The following simulation shows the separation behavior. This probably looks even less
