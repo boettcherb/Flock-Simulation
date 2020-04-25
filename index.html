@@ -127,10 +127,11 @@
         <br>
         <button type="button" value="1" class="reset-button">Reset Inputs</button>
         <p>
-            The next behavior we will look at is alignment. This is probably the most important 
-            behavior for creating a flocking simulation. Alignment is the desire for a bird to 
-            steer in the same direction as its neighbors. Naturally, all the members of a flock 
-            will desire to stick together
+            The next behavior we will look at is alignment. This is probably the most important
+            of the three main behaviors. Alignment is the desire for a bird to steer in the same 
+            direction as its neighbors. In other words, each boid will try to match the velocities
+            of the boids around it. This behavior really helps with separation, since it is easier 
+            for boids to avoid collisions if they are heading in the same direction.
         </p>
         <canvas id="canvas2" class="canvas"></canvas>
         <br>
