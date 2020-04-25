@@ -133,7 +133,9 @@
             of the three main behaviors. Alignment is the desire for a bird to steer in the same 
             direction as its neighbors. In other words, each boid will try to match the velocities
             of the boids around it. This behavior really helps with separation, since it is easier 
-            for boids to avoid collisions if they are heading in the same direction.
+            for boids to avoid collisions if they are heading in the same direction. To find its
+            alignment force, a boid calculates the average velocity of the boids that it can 
+            perceive and accelerates in that direction.
         </p>
         <canvas id="canvas2" class="canvas"></canvas>
         <br>
