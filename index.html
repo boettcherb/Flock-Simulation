@@ -60,6 +60,10 @@
             such as the perception radius of each boid and the magnitude of the forces applied
             by each of the main behaviors.
         </p>
+        <p>
+            The count input affects the number of boids in the simulation, and the max speed 
+            input puts a limit on the magnitude of the veloicities of each boid.
+        </p>
         <canvas id="canvas0" class="canvas"></canvas>
         <div class="range-input">
             <h3>Count:</h3>
@@ -82,8 +86,25 @@
             boid if the distance between them is less than half their perception radius. When a 
             boid determines that another boid is too close, it starts to accelerate in the opposite
             direction. The amount of separation is proportional to the inverse of the distance. 
-            In other words, the force of separation is stronger the closer the boids are to each
+            In other words, the separation force is stronger the closer the boids are to each
             other.
+        </p>
+        <p>
+            The following simulation shows the separation behavior. This probably looks even less
+            like a flock than the first simulation and you may be wondering why it is even one of
+            the main behaviors. Once we talk about the other behaviors, and especially cohesion,
+            it will hopefully start to make sense. You may notice that the boids in this simulation 
+            all start to slow down after a little while. This generally occurs when two boids are 
+            coming at each other head on. The separation force causes each to accelerate away from
+            each other and in the opposite direction of their current heading. This is a negative
+            acceleration which decreases their velocity.
+        </p>
+        <p>
+            The perception radius input affects the perception radius of each boid. With a small 
+            perception radius, boids can only see and react to boids that are very close to them.
+            The separation input affects the force of separation. The larger the separation force,
+            the larger the acceleration that is applied to each boid when they are trying to 
+            separate.
         </p>
         <canvas id="canvas1" class="canvas"></canvas>
         <br>
